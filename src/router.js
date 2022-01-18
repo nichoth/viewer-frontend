@@ -2,6 +2,7 @@ const _router = require('ruta3')
 import { html } from 'htm/preact'
 const Home = require('./view/home')
 const Feed = require('./view/feed')
+const Hashtags = require('./view/hashtag')
 var { PUB_URL } = require('./CONSTANTS')
 
 if (process.env.NODE_ENV === 'test') {
@@ -10,9 +11,9 @@ if (process.env.NODE_ENV === 'test') {
 
 console.log('**node env**', process.env.NODE_ENV)
 
-function Placeholder () {
-    return html`<div>placeholding</div>`
-}
+// function Placeholder () {
+//     return html`<div>placeholding</div>`
+// }
 
 function Router (state) {
     var router = _router()
@@ -42,14 +43,7 @@ function Router (state) {
                 .then(res => {
                     return res.ok ? res.json() : res.text()
                 })
-                .then(res => {
-                    console.log('tag response', res)
-                    return res
-                })
         }
-
-        console.log('state.hashtag', state.hashtag().tag)
-        console.log('tagname', tagName)
 
         if (state.hashtag().tag !== tagName) {
             getTagContent()
@@ -61,7 +55,7 @@ function Router (state) {
                 })
         }
 
-        return { view: Placeholder, getContent: getTagContent }
+        return { view: Hashtags }
     })
 
     router.addRoute('/feed/:username', ({ params }) => {

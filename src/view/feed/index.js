@@ -71,5 +71,3 @@ function FeedHeader (props) {
         </div>
     </div>`
 }
-
-module.exports = Feed
